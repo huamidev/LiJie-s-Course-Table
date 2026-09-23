@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiJie‘s Course Table</title>
+    <style>
+        body {
+            font-family: "Microsoft YaHei", "SimHei", sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow-x: auto; /* 在小屏幕上允许滚动 */
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 1200px; /* 保证列宽足够显示内容 */
+            table-layout: fixed;
+            border: 1px solid #b0b0b0;
+        }
+
+        th, td {
+            border: 1px solid #b0b0b0;
+            text-align: center;
+            vertical-align: middle;
+            padding: 5px;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        /* 表头样式 */
+        thead th {
+            background-color: #8c8c8c; /* 深灰色 */
+            color: #222;
+            font-weight: bold;
+            height: 60px;
+            font-size: 16px;
+        }
+
+        /* 第一、二列（节次、时间）样式 */
+        .col-index, .col-time {
+            background-color: #cccccc; /* 浅灰色 */
+            width: 100px;
+            font-weight: normal;
+        }
+
+        /* 星期列宽度 */
+        .col-day {
+            width: 200px;
+        }
+
+        /* 课程单元格通用样式 */
+        .course-cell {
+            background-color: #9cdcf9; /* 浅蓝色 */
+            padding: 8px;
+        }
+
+        /* 空白单元格样式 */
+        .empty-cell {
+            background-color: #e6e6e6; /* 浅灰背景 */
+        }
+
+        /* 特殊：无课程的空白处（周五第一节等）颜色调整 */
+        td:not(.course-cell):not(.col-index):not(.col-time) {
+             background-color: #e6e6e6;
+        }
+
+        /* 文字排版微调 */
+        .course-name {
+            font-weight: 500;
+            display: block;
+        }
+        
+        .teacher-name {
+            display: block;
+        }
+
+        .course-info {
+            display: block;
+            font-size: 13px;
+        }
+
+        /* 行高调整以匹配原图比例 */
+        tr {
+            height: 45px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th class="col-index">节次</th>
+                <th class="col-time">时间</th>
+                <th class="col-day">周一</th>
+                <th class="col-day">周二</th>
+                <th class="col-day">周三</th>
+                <th class="col-day">周四</th>
+                <th class="col-day">周五</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 第一节 -->
+            <tr>
+                <td class="col-index">第一节</td>
+                <td class="col-time">8:00-8:45</td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <!-- 周三 第一节 + 第二节 -->
+                <td class="course-cell" rowspan="2">
+                    <span class="teacher-name">符曦</span>
+                    <span class="course-name">高等数学D1(0109)</span>
+                    <span class="course-info">(1-16,7300)</span>
+                </td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+            </tr>
+            <!-- 第二节 -->
+            <tr>
+                <td class="col-index">第二节</td>
+                <td class="col-time">8:50-9:35</td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <!-- 周三合并已占用 -->
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+            </tr>
+
+            <!-- 第三节 -->
+            <tr>
+                <td class="col-index">第三节</td>
+                <td class="col-time">9:50-10:35</td>
+                <!-- 周一 第三、四、五节 -->
+                <td class="course-cell" rowspan="3">
+                    <span class="teacher-name">江玉洁</span>
+                    <span class="course-name">程序设计基础(2905)</span>
+                    <span class="course-info">(1-16,5209)</span>
+                </td>
+                <!-- 周二 第三、四节 -->
+                <td class="course-cell" rowspan="2">
+                    <span class="teacher-name">夏轶韫</span>
+                    <span class="course-name">通用英语III(2498)</span>
+                    <span class="course-info">(1-16,5116)</span>
+                </td>
+                <td class="empty-cell"></td>
+                <!-- 周四 第三、四节 (体育课改到了这里) -->
+                <td class="course-cell" rowspan="2">
+                    <span class="teacher-name">董立红</span>
+                    <span class="course-name">体育 I (3228)</span>
+                    <span class="course-info">(1-16,田径场东北角)</span>
+                </td>
+                 <!-- 周五 第三、四、五节 -->
+                <td class="course-cell" rowspan="3">
+                    <span class="teacher-name">符曦</span>
+                    <span class="course-name">高等数学D1(0109)</span>
+                    <span class="course-info">(1-16,7300)</span>
+                </td>
+            </tr>
+            <!-- 第四节 -->
+            <tr>
+                <td class="col-index">第四节</td>
+                <td class="col-time">10:40-11:25</td>
+                <!-- 周一合并已占用 -->
+                <!-- 周二合并已占用 -->
+                <td class="empty-cell"></td> <!-- 周三第四节恢复为空 -->
+                <!-- 周四合并已占用 -->
+                <!-- 周五合并已占用 -->
+            </tr>
+
+            <!-- 第五节 -->
+            <tr>
+                <td class="col-index">第五节</td>
+                <td class="col-time">11:25-12:10</td>
+                <!-- 周一合并已占用 -->
+                <td class="empty-cell"></td> <!-- 周二第五节 -->
+                <td class="empty-cell"></td> <!-- 周三第五节 -->
+                <td class="empty-cell"></td> <!-- 周四第五节 -->
+                <!-- 周五合并已占用 -->
+            </tr>
+
+            <!-- 第六节 -->
+            <tr>
+                <td class="col-index">第六节</td>
+                <td class="col-time">13:00-13:45</td>
+                <!-- 周一 第六、七、八、九节 -->
+                <td class="course-cell" rowspan="4">
+                    <span class="teacher-name">殷庆泽</span>
+                    <span class="course-name">人工智能应用与实践(2956)</span>
+                    <span class="course-info">(1-16,3401)</span>
+                </td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <!-- 周四 第六、七节 -->
+                <td class="course-cell" rowspan="2">
+                    <span class="teacher-name">高红豪</span>
+                    <span class="course-name">写作与沟通(2678)</span>
+                    <span class="course-info">(单1-16,5105)</span>
+                    <br>
+                    <span class="teacher-name">夏轶韫</span>
+                    <span class="course-name">通用英语III(2498)</span>
+                    <span class="course-info">(双1-16,5116)</span>
+                </td>
+                <td class="empty-cell"></td>
+            </tr>
+
+            <!-- 第七节 -->
+            <tr>
+                <td class="col-index">第七节</td>
+                <td class="col-time">13:50-14:35</td>
+                <!-- 周一合并已占用 -->
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <!-- 周四合并已占用 -->
+                <td class="empty-cell"></td>
+            </tr>
+
+            <!-- 第八节 -->
+            <tr>
+                <td class="col-index">第八节</td>
+                <td class="col-time">14:50-15:35</td>
+                <!-- 周一合并已占用 -->
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+            </tr>
+
+            <!-- 第九节 -->
+            <tr>
+                <td class="col-index">第九节</td>
+                <td class="col-time">15:40-16:25</td>
+                <!-- 周一合并已占用 -->
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+            </tr>
+
+            <!-- 第十节 -->
+            <tr>
+                <td class="col-index">第十节</td>
+                <td class="col-time">16:30-17:15</td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+            </tr>
+
+            <!-- 第十一节 -->
+            <tr>
+                <td class="col-index">第十一节</td>
+                <td class="col-time">18:00-18:45</td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <!-- 周三 第十一、十二、十三节 -->
+                <td class="course-cell" rowspan="3">
+                    <span class="teacher-name">王道红</span>
+                    <span class="course-name">思想道德与法治(1918)</span>
+                    <span class="course-info">(1-17,7100)</span>
+                </td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+            </tr>
+
+            <!-- 第十二节 -->
+            <tr>
+                <td class="col-index">第十二节</td>
+                <td class="col-time">18:50-19:35</td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <!-- 周三合并已占用 -->
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+            </tr>
+
+            <!-- 第十三节 -->
+            <tr>
+                <td class="col-index">第十三节</td>
+                <td class="col-time">19:40-20:25</td>
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+                <!-- 周三合并已占用 -->
+                <td class="empty-cell"></td>
+                <td class="empty-cell"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
